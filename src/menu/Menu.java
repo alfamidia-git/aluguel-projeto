@@ -5,7 +5,7 @@ public class Menu {
 	
 	public static void  menu1() {
 		System.out.println("===============================");
-		System.out.println("Bem vindo ao sisteme de aluguel de veículos");
+		System.out.println("Bem vindo ao sistema de aluguel de veículos");
 		System.out.println("Digite a opção correspondente: ");
 		System.out.println("1 - Cliente");
 		System.out.println("2 - Vendedor");
