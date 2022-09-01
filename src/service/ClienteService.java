@@ -14,6 +14,7 @@ public class ClienteService {
 	
 	public ClienteService(Scanner sc) {
 		this.sc = sc;
+		this.repository.salvar(new Cliente("marlon", "marlon@alfamidia.com.br", "Porto Alegre", "123"));
 	}
 	
 	
@@ -58,6 +59,22 @@ public class ClienteService {
 	
 	public void alugarVeiculo(Cliente cliente, Veiculo veiculo) {
 		cliente.getVeiculos().add(veiculo);
+		this.repository.salvar(cliente);
+	}
+	
+	public void buscarCarrosAlugados(Cliente cliente) {
+		List<Veiculo> veiculosAlugados = cliente.getVeiculos();
+		
+		for(Veiculo veiculo : veiculosAlugados) {
+			System.out.println(veiculo);
+		}
+	}
+	
+	public void removerVeiculo(Cliente clienteParam, Veiculo veiculoParam) {
+		Cliente cliente = this.repository.buscarPorId(clienteParam.getId());
+		
+		cliente.getVeiculos().remove(veiculoParam);
+		
 		this.repository.salvar(cliente);
 	}
 	

@@ -14,7 +14,7 @@ public class Menu {
 	}
 	
 	
-	public static void menuCliente1() {
+	public static void menu2() {
 		System.out.println("Digite seu e-mail: ");
 
 	}
