@@ -3,6 +3,7 @@ package service;
 import java.util.List;
 import java.util.Scanner;
 
+import exception.SistemaException;
 import model.Cliente;
 import model.Veiculo;
 import model.Vendedor;
@@ -54,9 +55,13 @@ public class VendedorService {
 		}
 	}
 	
-	public void salvarVeiculo(Veiculo veiculo, Integer idVendedor) {
+	public void salvarVeiculo(Veiculo veiculo, Integer idVendedor) throws SistemaException {
 		
 		Vendedor vendedor = repository.buscarPorId(idVendedor);
+		
+		if(vendedor == null) {
+			throw new SistemaException("Vendedor não encontrado!");
+		}
 		
 		vendedor.getVeiculosAlugado().add(veiculo);
 		
