@@ -2,14 +2,14 @@ package model;
 
 import util.Contador;
 
-public abstract class Pessoa {
-	
+public abstract class Pessoa implements Banco{
+
 	private Integer id;
 	private String nome;
 	private String email;
 	private String cidade;
 	private String senha;
-	
+
 	public Pessoa(String nome, String email, String cidade, String senha) {
 		this.id = Contador.proximoId();
 		this.nome = nome;
@@ -17,8 +17,8 @@ public abstract class Pessoa {
 		this.cidade = cidade;
 		this.senha = senha;
 	}
-	
-	
+
+
 	public String getNome() {
 		return nome;
 	}
@@ -45,6 +45,7 @@ public abstract class Pessoa {
 	}
 
 
+	@Override
 	public Integer getId() {
 		return id;
 	}
@@ -53,7 +54,7 @@ public abstract class Pessoa {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	
-	
-	
+
+
+
 }
