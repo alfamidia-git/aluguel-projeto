@@ -11,6 +11,11 @@ public class Cliente extends Pessoa{
 		super(nome, email, cidade, senha);
 		this.veiculos = new ArrayList();
 	}
+	
+	public Cliente(int id, String nome, String email, String senha) {
+		super(id, nome, email, senha);
+		this.veiculos = new ArrayList();
+	}
 
 	public List<Veiculo> getVeiculos() {
 		return veiculos;

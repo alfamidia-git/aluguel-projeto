@@ -26,6 +26,17 @@ public class Veiculo implements Banco{
 		this.valorLocacao = valorLocacao;
 		this.status = Status.LIVRE;
 	}
+	
+	public Veiculo(int id, String modelo, String marca, String cor, String placa, Tipo tipo, Status status, double valorLocacao) {
+		this.id = id;
+		this.modelo = modelo;
+		this.marca = marca;
+		this.cor = cor;
+		this.placa = placa;
+		this.tipo = tipo;
+		this.valorLocacao = valorLocacao;
+		this.status = status;
+	}
 
 	@Override
 	public Integer getId() {

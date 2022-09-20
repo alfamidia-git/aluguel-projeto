@@ -1,3 +1,7 @@
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -7,6 +11,8 @@ import model.Administrador;
 import model.Cliente;
 import model.Veiculo;
 import model.Vendedor;
+import repository.CidadeRepository;
+import repository.ConexaoBD;
 import service.AdminService;
 import service.ClienteService;
 import service.VeiculoService;
@@ -14,7 +20,10 @@ import service.VendedorService;
 
 public class Principal {
 
-	public static void main(String[] args) throws InterruptedException {
+	public static void main(String[] args) throws InterruptedException, SQLException {
+		
+		
+		
 		Scanner sc = new Scanner(System.in);
 
 		ClienteService clienteService = new ClienteService(sc);
