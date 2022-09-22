@@ -21,8 +21,7 @@ import service.VendedorService;
 public class Principal {
 
 	public static void main(String[] args) throws InterruptedException, SQLException {
-		
-		
+
 		
 		Scanner sc = new Scanner(System.in);
 

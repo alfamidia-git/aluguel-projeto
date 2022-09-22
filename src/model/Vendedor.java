@@ -14,6 +14,12 @@ public class Vendedor extends Pessoa{
 		this.salario = salario;
 		this.veiculosAlugado = new ArrayList<>();
 	}
+	
+	public Vendedor(int id, String nome, String email, String senha, double salario) {
+		super(id, nome, email, senha);
+		this.salario = salario;
+		this.veiculosAlugado = new ArrayList<>();
+	}
 
 	public double getSalario() {
 		return this.salario;

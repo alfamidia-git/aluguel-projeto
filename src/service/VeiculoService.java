@@ -13,11 +13,14 @@ import model.Veiculo;
 import model.Veiculo.Status;
 import model.Veiculo.Tipo;
 import repository.Repository;
+import repository.VeiculoRepository;
 
 public class VeiculoService {
 
 	Scanner sc;
 	Repository<Veiculo> repository = new Repository<>();
+	
+	VeiculoRepository veiculoRepository = new VeiculoRepository();
 
 	public VeiculoService(Scanner sc) {
 		this.sc = sc;
@@ -51,26 +54,7 @@ public class VeiculoService {
 
 	public void buscarTodosVeiculosLivres(){		
 		
-		List<Veiculo> todosVeiculos = new ArrayList<>();
-		
-		try {
-			ResultSet result = this.repository.select("SELECT * FROM veiculos WHERE status = 'LIVRE'");
-			
-			while(result.next()) {
-				String modelo = result.getString("modelo");
-				String marca = result.getString("marca");
-				String placa = result.getString("placa");
-				String cor = result.getString("cor");
-				int id = result.getInt("id");
-				Status status = Status.valueOf(result.getString("status"));
-				Tipo tipo = Tipo.valueOf(result.getString("tipo"));
-				double valorLocacao = result.getDouble("valorLocacao");
-				
-				todosVeiculos.add(new Veiculo(id, modelo, marca, cor, placa, tipo, status, valorLocacao));
-			}
-		} catch (SQLException e) {
-			System.out.println("Erro ao buscar veiculos livres: " + e.getMessage());
-		}
+		List<Veiculo> todosVeiculos = this.veiculoRepository.buscarOnde("STATUS = 'LIVRE' ");
 
 		todosVeiculos.forEach(v -> System.out.println(v));
 
@@ -78,28 +62,7 @@ public class VeiculoService {
 
 	public Veiculo alugarVeiculoPorID(int id) throws SistemaException {
 
-		Veiculo veiculo = null;
-
-		try {
-			PreparedStatement ps = this.repository.prepararSQL("select * from veiculos where id = ?");
-			ps.setInt(1, id);
-
-			ResultSet result = ps.executeQuery();
-			while (result.next()) {
-				String modelo = result.getString("modelo");
-				String marca = result.getString("marca");
-				String placa = result.getString("placa");
-				String cor = result.getString("cor");
-				int idR = result.getInt("id");
-				Status status = Status.valueOf(result.getString("status"));
-				Tipo tipo = Tipo.valueOf(result.getString("tipo"));
-				double valorLocacao = result.getDouble("valorLocacao");
-				
-				veiculo = new Veiculo(id, modelo, marca, cor, placa, tipo, status, valorLocacao);
-			}
-		} catch (SQLException e) {
-			System.out.println("Erro ao buscar o veiculo por id: " + e.getMessage());
-		}
+		Veiculo veiculo = this.veiculoRepository.buscarPorID(id);
 
 		if(veiculo == null) {
 			throw new SistemaException("Veículo não encontrado!");
@@ -120,19 +83,20 @@ public class VeiculoService {
 	}
 
 	public Veiculo devolverVeiculo(Cliente cliente, int id) throws SistemaException {
-		Veiculo veiculo = this.repository.buscarPorId(id);
-
+		
+		Veiculo veiculo = this.veiculoRepository.buscarPorID(id);
+		
 		if(veiculo == null) {
 			throw new SistemaException("Veículo não encontrado!");
 		}
-
+		
 		if(!cliente.getVeiculos().contains(veiculo)) {
 			throw new SistemaException("Você não possui este veículo!");
 		}
 
 		veiculo.setStatus(Status.LIVRE);
-		this.repository.salvar(veiculo);
-
+		this.veiculoRepository.atualizar(veiculo);
+		
 		return veiculo;
 	}
 }

@@ -13,7 +13,11 @@ public class CidadeRepository {
 	public CidadeRepository() {
 		ConexaoBD bd = new ConexaoBD();
 		
-		this.conn = bd.getConnection();
+		try {
+			this.conn = bd.getConnection();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
 	}
 	
 	
@@ -31,8 +35,7 @@ public class CidadeRepository {
 				System.out.println(codIbge + " - " + nome + "/" + uf);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println(e);
 		}
 	}
 }

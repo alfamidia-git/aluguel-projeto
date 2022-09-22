@@ -27,7 +27,7 @@ public class ConexaoBD {
 		
 	}
 	
-	public Connection getConnection() {
+	public Connection getConnection() throws SQLException {
 		this.conn = null;
 		try {
 			this.conn = DriverManager.getConnection(this.url, this.username, this.passoword);
@@ -35,6 +35,9 @@ public class ConexaoBD {
 			System.out.println("Erro ao fazer conexão: " + e.getMessage());
 		}
 		
+		if(this.conn == null) {
+			throw new SQLException("Erro ao conectar com banco de dados");
+		}
 		return conn;
 	}
 	
